@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
+import Dashboard from "./Dashboard";
 
 function App(props) {
   const { dispatch } = props;
@@ -9,7 +10,13 @@ function App(props) {
     console.log("in the app useEffect()");
     dispatch(handleInitialData());
   }, [dispatch]);
-  return <div>Starter Code</div>;
+  return <div>{props.loading === true ? null : <Dashboard />}</div>;
 }
 
-export default connect()(App);
+function mapStateToProps({ authedUser }) {
+  return {
+    loading: authedUser === null,
+  };
+}
+
+export default connect(mapStateToProps)(App);
