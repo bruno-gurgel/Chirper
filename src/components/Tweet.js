@@ -7,11 +7,13 @@ import {
   TiHeartFullOutline,
 } from "react-icons/ti";
 import { handleLikedTweet } from "../actions/tweets";
+import { Link, withRouter } from "react-router-dom";
 
 function Tweet(props) {
   const toParent = (event, id) => {
     event.preventDefault();
-    // todo: Redirect to parent Tweet.
+
+    props.history.push(`/tweet/${id}`);
   };
 
   const handleLike = (event) => {
@@ -43,10 +45,11 @@ function Tweet(props) {
     likes,
     replies,
     parent,
+    id,
   } = tweet;
 
   return (
-    <div className="tweet">
+    <Link to={`/tweet/${id}`} className="tweet">
       <img src={avatar} alt={`Avatar of ${name}`} className="avatar"></img>
       <div className="tweet-info">
         <div>
@@ -75,7 +78,7 @@ function Tweet(props) {
           <span>{likes !== 0 && likes}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -90,4 +93,4 @@ function mapStateToProps({ authedUser, users, tweets }, { id }) {
   };
 }
 
-export default connect(mapStateToProps)(Tweet);
+export default withRouter(connect(mapStateToProps)(Tweet));

@@ -5,6 +5,8 @@ import Dashboard from "./Dashboard";
 import LoadingBar from "react-redux-loading";
 import NewTweet from "./NewTweet";
 import TweetPage from "./TweetPage";
+import Nav from "./Nav";
+import { Route } from "react-router-dom";
 
 function App(props) {
   const { dispatch } = props;
@@ -16,9 +18,16 @@ function App(props) {
   return (
     <div>
       <LoadingBar />
-      {props.loading === true ? null : (
-        <TweetPage match={{ params: { id: "8xf0y6ziyjabvozdd253nd" } }} />
-      )}
+      <div className="container">
+        <Nav />
+        {props.loading === true ? null : (
+          <div>
+            <Route path="/" exact component={Dashboard} />
+            <Route path="/tweet/:id" component={TweetPage} />
+            <Route path="/new" component={NewTweet} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

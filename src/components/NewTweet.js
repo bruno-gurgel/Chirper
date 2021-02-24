@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import { handleNewTweet } from "../actions/tweets";
 
 function NewTweet(props) {
   const [text, updateText] = useState("");
+  const [toHome, setToHome] = useState(false);
+
   const tweetLeft = 280 - text.length;
 
   const handleChange = (event) => {
@@ -19,9 +22,12 @@ function NewTweet(props) {
     dispatch(handleNewTweet(text, id));
 
     updateText("");
+    setToHome(id ? false : true);
   };
 
-  /* todo: Redirect to / if submitted*/
+  if (toHome === true) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>
