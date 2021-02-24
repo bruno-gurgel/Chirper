@@ -6,6 +6,7 @@ import {
   TiHeartOutline,
   TiHeartFullOutline,
 } from "react-icons/ti";
+import { handleLikedTweet } from "../actions/tweets";
 
 function Tweet(props) {
   const toParent = (event, id) => {
@@ -15,7 +16,16 @@ function Tweet(props) {
 
   const handleLike = (event) => {
     event.preventDefault();
-    // todo: Handle Like Tweet.
+
+    const { dispatch, tweet, authedUser } = props;
+
+    dispatch(
+      handleLikedTweet({
+        id: tweet.id,
+        hasLiked: tweet.hasLiked,
+        authedUser,
+      })
+    );
   };
 
   const { tweet } = props;
