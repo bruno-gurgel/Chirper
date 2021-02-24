@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { handleNewTweet } from "../actions/tweets";
 
 function NewTweet(props) {
   const [text, updateText] = useState("");
@@ -13,9 +15,8 @@ function NewTweet(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    //todo: Add Tweet to store
-
-    console.log("New Tweet: ", text);
+    const { dispatch, id } = props;
+    dispatch(handleNewTweet(text, id));
 
     updateText("");
   };
@@ -42,4 +43,4 @@ function NewTweet(props) {
   );
 }
 
-export default NewTweet;
+export default connect()(NewTweet);
